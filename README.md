@@ -13,7 +13,8 @@ To get this running, simply run the  the following
 ## Step 2: Create databases
 
 Create the databases and the initial migrations with the following command:
-`python manage.py makemigrations chatbot_tutorial`
+`python manage.py makemigrations chatbot_tutorial` <br />
+
 `python manage.py migrate`
 
 ## Step 3: Run server
