@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% extends 'chatbot_tutorial/layout.html' %} 
+
+{% block content %}
+<div class = "m-5">
+<form action="" method = "POST">
+        {% csrf_token %}
+
+    <div class = "form-group">
+        {{form.username.label}}
+        {{form.username}} <br>
+
+    </div>
+        {{form.password1.label}} 
+        {{form.password1}}<br>
+
+        {{form.password2.label}}
+        {{form.password2}} <br>
+    <input type="submit" value="Sign Up" class="btn btn-dark">
+</form>
+</div>
+
+{% endblock content %}
+</html>

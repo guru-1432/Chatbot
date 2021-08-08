@@ -1,0 +1,24 @@
+{% extends 'chatbot_tutorial/layout.html' %} 
+{% block content %}
+
+<div class = "p-5 row">
+    <div class = "col-3"></div>
+    <div class = "col-6"> 
+    <table class="table table-secondary  table-bordered" >
+        <tr class = "table-active">
+            <th> User </th>
+            <th>Count</th>
+            <!-- {{ table_data }} -->
+          {% for key in table_data %}
+            <tr>
+                <td>{{ key.0 }}</td>
+                <td>{{ key.1 }}</td>
+            </tr>
+            
+          {% endfor %}
+        
+          
+    </table>
+  </div>
+  </div>
+{% endblock content %}

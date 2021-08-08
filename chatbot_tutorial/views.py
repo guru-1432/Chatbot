@@ -7,9 +7,14 @@ from django.utils.decorators import method_decorator
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate , login, logout 
+from . import models
 
 def chat(request):
-    context = {}
+    context = {'curentuser': 'harry'}
+    current_user = request.user.username
     return render(request, 'chatbot_tutorial/chatbot.html', context)
 
 
@@ -41,4 +46,56 @@ def respond_to_websockets(message):
         result_message['text'] = "I don't know any responses for that. If you're interested in yo mama jokes tell me fat, stupid or dumb."
 
     return result_message
+    
+
+def loginpage(request):
+    context= {}
+    if request.method == 'POST':
+        username = request.POST.get('uname')
+        password = request.POST.get('psw')
+        user = authenticate(username= username,password=password)
+        if user is not None:
+            login(request,user)
+            messages.success(request, "Login success start chatting")
+            return render(request,'chatbot_tutorial/chatbot.html')
+        else:
+            messages.warning(request, "Invalid username or password ") 
+            return render(request,'chatbot_tutorial/login.html')
+    return render(request,'chatbot_tutorial/login.html')
+
+def logoutpg(request):
+    logout(request)
+    return render (request,'chatbot_tutorial/login.html')
+
+
+def signup(request):
+    form = UserCreationForm()
+    context= {'form':form}
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "User created")
+            return render(request,'chatbot_tutorial/login.html')
+    return render(request,'chatbot_tutorial/signup.html',context)
+
+
+def track_count(user):
+    if user:
+        count = 5
+        current = models.UserCalls.objects.filter(Username = user).values_list()
+        if current:
+            count = current[0][1] +1
+            update_entry = models.UserCalls.objects.filter(Username = user).update(count = count)
+        else:
+            new_entry =models.UserCalls(user,1)
+            new_entry.save()
+
+def showcount(request):
+    result = models.UserCalls.objects.all().values_list()
+    context = {
+        'table_data' : list(result)
+    }
+    return render(request,'chatbot_tutorial/showcount.html',context = context)
+    
     

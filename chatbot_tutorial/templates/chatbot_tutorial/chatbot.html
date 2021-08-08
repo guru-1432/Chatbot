@@ -1,6 +1,10 @@
+{% extends 'chatbot_tutorial/layout.html' %} 
 {% load staticfiles %}
 
+
 <!DOCTYPE html>
+
+{% block content %}
 <html lang="en">
 
     <head>
@@ -16,10 +20,11 @@
        
         <link href="{% static 'chatbot_tutorial/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <base target="_blank"/>
         <title>Websockets Bot</title>
 
     </head>
+
+
     <body>
         <!-- Wrap all page content here -->
 
@@ -43,12 +48,14 @@
                     
                     <div class="row" id="send-box">
                         
-                        <div id="messageToSend" contenteditable="true" class="pull-left" data-ph="Type your message..."></div>
-                        
-
+                        <!-- <div id="messageToSend" contenteditable="true" class="pull-left" data-ph="Type your message..."></div> -->
+                        <div id = "messageToSend" ></div>
+                            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon01" onclick = "sendTextMessage('fat')">fat</button>
+                            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon02" onclick = "sendTextMessage('stupid')">stupid</button>
+                            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03" onclick = "sendTextMessage('dumb')">dumb</button>
                         <div class="pull-right send-button-div">
-                            <button  id="messageSendButton" type="button" onclick="sendTextMessage()">
-                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            <!-- <button  id="messageSendButton" type="button" onclick="sendTextMessage()"> -->
+                                <!-- <i class="fa fa-paper-plane" aria-hidden="true"></i> -->
                             </button>  
                         </div>
 
@@ -173,4 +180,6 @@
         </script>
 
 </body>
+
+{% endblock content %}
 </html>

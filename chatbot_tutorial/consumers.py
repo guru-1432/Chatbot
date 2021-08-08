@@ -2,7 +2,8 @@ import json
 from channels import Channel
 from channels.sessions import enforce_ordering
 
-from .views import respond_to_websockets
+
+from .views import respond_to_websockets,track_count
 
 
 @enforce_ordering
@@ -23,7 +24,10 @@ def ws_receive(message):
     # You could easily build up a basic framework that did this
     # encoding/decoding
     # for you as well as handling common errors.
+   
     payload = json.loads(message['text'])
+    current_user =payload.get('user')
+    track_count(current_user)
     payload['reply_channel'] = message.content['reply_channel']
     Channel("chat.receive").send(payload)
 
@@ -50,9 +54,9 @@ def chat_leave(message):
     #   remove this reply_channel from the group associated with the room
     pass
 
-
+# @channel_session  
 def chat_send(message):
-
+    # print(message.user)
     # First send the candidate message in the right format for
     # chatbot to print it on the message channel
     message_to_send_content = {
@@ -69,9 +73,10 @@ def chat_send(message):
     response = respond_to_websockets(
         message
     )
-
     # Reformat the reponse and send it to the html to print
     response['source'] = 'BOT'
     message.reply_channel.send({
         'text': json.dumps(response)
     })
+
+

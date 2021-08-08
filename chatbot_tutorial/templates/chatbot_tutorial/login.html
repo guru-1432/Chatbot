@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends 'chatbot_tutorial/layout.html' %} 
+
+{% block content %}
+<form action="{%url 'loginpage' %}" method = "POST">
+
+    {% csrf_token %}
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required><br>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required><br>
+    <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Login</button>
+
+</form>
+{% endblock content %}
+</html>

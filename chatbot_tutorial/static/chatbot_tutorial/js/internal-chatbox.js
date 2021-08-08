@@ -39,19 +39,24 @@ function processAndDisplayChatMessage(message){
 }
 
 
-function sendTextMessage() {
-    if ($('#messageToSend').text() == "") {
-        return
-    }
-
+function sendTextMessage(btn = "") {
+    // if ($('#messageToSend').text() == "") {
+    //     return
+    // }
+	currentuser =document.getElementById("currentuser").textContent; 
     message = {}
-    message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n");
+    // message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n");
+	// message.text = 'guru'
     message.command= 'send'
     message.timestamp = new Date();
-    
+	message.user = currentuser;
+	if (btn != "") {
+		message.text = btn
+    }
     
     $('#messageToSend').text('');
 	chatsock.send(JSON.stringify(message));
+	
 	$("#message").val('').focus();
     return false;   
 }
