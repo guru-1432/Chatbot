@@ -10,6 +10,7 @@ Django==1.10.6
 incremental==16.10.1
 oauthlib==2.0.1
 packaging==16.8
+psycopg2==2.9.1
 pyparsing==2.2.0
 requests==2.13.0
 requests-oauthlib==0.8.0
